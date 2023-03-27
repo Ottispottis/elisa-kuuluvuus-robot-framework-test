@@ -17,12 +17,17 @@ ${GREY_STAR}    class:ea-icon.ea-icon--star.ea-icon--star-filled.staricon_grey
 ${TABLE_XPATH}      xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table
 ${rating}    ${EMPTY}      
 
-*** Test Cases ***
-
-Test coverage page
+*** Keywords ***
+open the Browser
     Open Browser   ${URL}    ${BROWSER}
-    Input Text   ${SEARCH_BOX}    ${ADDRESS}
+
+search location
+    [Arguments]    ${address}
+    Input Text   ${SEARCH_BOX}    ${address}
     Press Keys      None   ENTER
+    Set Global Variable    ${ADDRESS}    ${address}
+
+check coverage rating
     #Wait for table element that contains coverage ratings to load in.
     Wait Until Page Contains Element    ${TABLE_XPATH}    timeout=30s
     
@@ -39,7 +44,7 @@ Test coverage page
         Fail    msg=Missing star rating
         
     END
-    
+
     FOR    ${row}    IN RANGE    1    ${rows + 1}
         ${rating}=    Set Variable    0
         FOR    ${cell}    IN RANGE    2    5
@@ -54,5 +59,12 @@ Test coverage page
         ${signal_type_text}=    Get Text    ${signal_type}
         Log    ${signal_type_text} signal strength at ${ADDRESS}: ${rating}/3
     END
-    
+        
+
+*** Test Cases ***
+
+Check Coverage Page
+    open the Browser
+    search location     Ratavartijankatu 5, Helsinki
+    check coverage rating
     
