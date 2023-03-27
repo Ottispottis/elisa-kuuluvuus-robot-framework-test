@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.0.2 (Python 3.10.7 on win32)" generated="20230327 22:04:05.258" rpa="false" schemaversion="3">
+<suite id="s1" name="Test" source="d:\pythonstuff\Elisa-kuuluvuus-robot-framework-test\elisa-kuuluvuus-robot-framework-test\test.robot">
+<test id="s1-t1" name="Test coverage page" line="22">
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20230327 22:04:05.390" level="INFO">Opening browser 'Chrome' to base url 'https://elisa.fi/kuuluvuus/'.</msg>
+<status status="PASS" starttime="20230327 22:04:05.389" endtime="20230327 22:04:07.121"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${SEARCH_BOX}</arg>
+<arg>${ADDRESS}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.122" level="INFO">Typing text 'Ratavartijankatu 5, Helsinki' into text field 'id:search-input'.</msg>
+<status status="PASS" starttime="20230327 22:04:07.121" endtime="20230327 22:04:07.189"/>
+</kw>
+<kw name="Press Keys" library="SeleniumLibrary">
+<arg>None</arg>
+<arg>ENTER</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<msg timestamp="20230327 22:04:07.190" level="INFO">Sending key(s) ('ENTER',) to page.</msg>
+<msg timestamp="20230327 22:04:07.190" level="INFO">Pressing special key ENTER to browser.</msg>
+<msg timestamp="20230327 22:04:07.190" level="INFO">Releasing special key ENTER.</msg>
+<status status="PASS" starttime="20230327 22:04:07.189" endtime="20230327 22:04:07.196"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="SeleniumLibrary">
+<arg>${TABLE_XPATH}</arg>
+<arg>timeout=30s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" starttime="20230327 22:04:07.196" endtime="20230327 22:04:07.666"/>
+</kw>
+<kw name="Get WebElements" library="SeleniumLibrary">
+<var>@{coverages}</var>
+<arg>${COVERAGE_CLASS}</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.674" level="INFO">@{coverages} = [ &lt;selenium.webdriver.remote.webelement.WebElement (session="21e3e57b28c8e60a858b7cf933287eb3", element="1437001d-5ecb-422e-a7f6-f191acf63b01")&gt; | &lt;selenium.webdriver.remote.webelement.WebElement (ses...</msg>
+<status status="PASS" starttime="20230327 22:04:07.666" endtime="20230327 22:04:07.674"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${rows}</var>
+<arg>${coverages}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20230327 22:04:07.675" level="INFO">Length is 5</msg>
+<msg timestamp="20230327 22:04:07.675" level="INFO">${rows} = 5</msg>
+<status status="PASS" starttime="20230327 22:04:07.675" endtime="20230327 22:04:07.675"/>
+</kw>
+<kw name="Get Element Count" library="SeleniumLibrary">
+<var>${ratings_filled}</var>
+<arg>${FILLED_STAR}</arg>
+<doc>Returns the number of elements matching ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.686" level="INFO">${ratings_filled} = 14</msg>
+<status status="PASS" starttime="20230327 22:04:07.676" endtime="20230327 22:04:07.686"/>
+</kw>
+<kw name="Get Element Count" library="SeleniumLibrary">
+<var>${ratings_grey}</var>
+<arg>${GREY_STAR}</arg>
+<doc>Returns the number of elements matching ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.692" level="INFO">${ratings_grey} = 1</msg>
+<status status="PASS" starttime="20230327 22:04:07.686" endtime="20230327 22:04:07.692"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${total}</var>
+<arg>${ratings_grey} + ${ratings_filled}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.693" level="INFO">${total} = 15</msg>
+<status status="PASS" starttime="20230327 22:04:07.692" endtime="20230327 22:04:07.693"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${divided_total}</var>
+<arg>$total/${rows}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.695" level="INFO">${divided_total} = 3.0</msg>
+<status status="PASS" starttime="20230327 22:04:07.693" endtime="20230327 22:04:07.695"/>
+</kw>
+<if>
+<branch type="IF" condition="${divided_total} &lt; 3">
+<kw name="Fail" library="BuiltIn">
+<arg>msg=Missing star rating</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" starttime="20230327 22:04:07.696" endtime="20230327 22:04:07.696"/>
+</kw>
+<status status="NOT RUN" starttime="20230327 22:04:07.696" endtime="20230327 22:04:07.696"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.696" endtime="20230327 22:04:07.696"/>
+</if>
+<for flavor="IN RANGE">
+<var>${row}</var>
+<value>1</value>
+<value>${rows + 1}</value>
+<iter>
+<var name="${row}">1</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${rating}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230327 22:04:07.698" level="INFO">${rating} = 0</msg>
+<status status="PASS" starttime="20230327 22:04:07.698" endtime="20230327 22:04:07.698"/>
+</kw>
+<for flavor="IN RANGE">
+<var>${cell}</var>
+<value>2</value>
+<value>5</value>
+<iter>
+<var name="${cell}">2</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.721" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.699" endtime="20230327 22:04:07.721"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.722" level="INFO">${rating} = 1</msg>
+<status status="PASS" starttime="20230327 22:04:07.722" endtime="20230327 22:04:07.722"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.721" endtime="20230327 22:04:07.722"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.721" endtime="20230327 22:04:07.722"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.699" endtime="20230327 22:04:07.722"/>
+</iter>
+<iter>
+<var name="${cell}">3</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.739" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.723" endtime="20230327 22:04:07.739"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.739" level="INFO">${rating} = 2</msg>
+<status status="PASS" starttime="20230327 22:04:07.739" endtime="20230327 22:04:07.740"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.739" endtime="20230327 22:04:07.740"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.739" endtime="20230327 22:04:07.740"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.723" endtime="20230327 22:04:07.740"/>
+</iter>
+<iter>
+<var name="${cell}">4</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.751" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.740" endtime="20230327 22:04:07.751"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.752" level="INFO">${rating} = 3</msg>
+<status status="PASS" starttime="20230327 22:04:07.752" endtime="20230327 22:04:07.752"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.752" endtime="20230327 22:04:07.752"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.751" endtime="20230327 22:04:07.752"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.740" endtime="20230327 22:04:07.752"/>
+</iter>
+<status status="PASS" starttime="20230327 22:04:07.698" endtime="20230327 22:04:07.752"/>
+</for>
+<kw name="Get From List" library="Collections">
+<var>${signal_type}</var>
+<arg>${coverages}</arg>
+<arg>${row-1}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<msg timestamp="20230327 22:04:07.753" level="INFO">${signal_type} = &lt;selenium.webdriver.remote.webelement.WebElement (session="21e3e57b28c8e60a858b7cf933287eb3", element="1437001d-5ecb-422e-a7f6-f191acf63b01")&gt;</msg>
+<status status="PASS" starttime="20230327 22:04:07.752" endtime="20230327 22:04:07.753"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${signal_type_text}</var>
+<arg>${signal_type}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.765" level="INFO">${signal_type_text} = 2G         </msg>
+<status status="PASS" starttime="20230327 22:04:07.753" endtime="20230327 22:04:07.766"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${signal_type_text} signal strength at ${ADDRESS}: ${rating}/3</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230327 22:04:07.766" level="INFO">2G          signal strength at Ratavartijankatu 5, Helsinki: 3/3</msg>
+<status status="PASS" starttime="20230327 22:04:07.766" endtime="20230327 22:04:07.766"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.698" endtime="20230327 22:04:07.766"/>
+</iter>
+<iter>
+<var name="${row}">2</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${rating}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230327 22:04:07.766" level="INFO">${rating} = 0</msg>
+<status status="PASS" starttime="20230327 22:04:07.766" endtime="20230327 22:04:07.767"/>
+</kw>
+<for flavor="IN RANGE">
+<var>${cell}</var>
+<value>2</value>
+<value>5</value>
+<iter>
+<var name="${cell}">2</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.785" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.767" endtime="20230327 22:04:07.785"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.786" level="INFO">${rating} = 1</msg>
+<status status="PASS" starttime="20230327 22:04:07.785" endtime="20230327 22:04:07.786"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.785" endtime="20230327 22:04:07.786"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.785" endtime="20230327 22:04:07.786"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.767" endtime="20230327 22:04:07.786"/>
+</iter>
+<iter>
+<var name="${cell}">3</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.805" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.786" endtime="20230327 22:04:07.805"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.806" level="INFO">${rating} = 2</msg>
+<status status="PASS" starttime="20230327 22:04:07.805" endtime="20230327 22:04:07.806"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.805" endtime="20230327 22:04:07.806"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.805" endtime="20230327 22:04:07.806"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.786" endtime="20230327 22:04:07.806"/>
+</iter>
+<iter>
+<var name="${cell}">4</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.831" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.806" endtime="20230327 22:04:07.831"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.831" level="INFO">${rating} = 3</msg>
+<status status="PASS" starttime="20230327 22:04:07.831" endtime="20230327 22:04:07.831"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.831" endtime="20230327 22:04:07.831"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.831" endtime="20230327 22:04:07.831"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.806" endtime="20230327 22:04:07.831"/>
+</iter>
+<status status="PASS" starttime="20230327 22:04:07.767" endtime="20230327 22:04:07.832"/>
+</for>
+<kw name="Get From List" library="Collections">
+<var>${signal_type}</var>
+<arg>${coverages}</arg>
+<arg>${row-1}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<msg timestamp="20230327 22:04:07.832" level="INFO">${signal_type} = &lt;selenium.webdriver.remote.webelement.WebElement (session="21e3e57b28c8e60a858b7cf933287eb3", element="854f90fe-b978-4c5b-a17d-b7e93f1e2357")&gt;</msg>
+<status status="PASS" starttime="20230327 22:04:07.832" endtime="20230327 22:04:07.832"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${signal_type_text}</var>
+<arg>${signal_type}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.840" level="INFO">${signal_type_text} = 3G         </msg>
+<status status="PASS" starttime="20230327 22:04:07.832" endtime="20230327 22:04:07.840"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${signal_type_text} signal strength at ${ADDRESS}: ${rating}/3</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230327 22:04:07.840" level="INFO">3G          signal strength at Ratavartijankatu 5, Helsinki: 3/3</msg>
+<status status="PASS" starttime="20230327 22:04:07.840" endtime="20230327 22:04:07.841"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.766" endtime="20230327 22:04:07.841"/>
+</iter>
+<iter>
+<var name="${row}">3</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${rating}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230327 22:04:07.841" level="INFO">${rating} = 0</msg>
+<status status="PASS" starttime="20230327 22:04:07.841" endtime="20230327 22:04:07.841"/>
+</kw>
+<for flavor="IN RANGE">
+<var>${cell}</var>
+<value>2</value>
+<value>5</value>
+<iter>
+<var name="${cell}">2</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.853" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.841" endtime="20230327 22:04:07.853"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.853" level="INFO">${rating} = 1</msg>
+<status status="PASS" starttime="20230327 22:04:07.853" endtime="20230327 22:04:07.853"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.853" endtime="20230327 22:04:07.853"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.853" endtime="20230327 22:04:07.854"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.841" endtime="20230327 22:04:07.854"/>
+</iter>
+<iter>
+<var name="${cell}">3</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.864" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.854" endtime="20230327 22:04:07.864"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.865" level="INFO">${rating} = 2</msg>
+<status status="PASS" starttime="20230327 22:04:07.865" endtime="20230327 22:04:07.865"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.865" endtime="20230327 22:04:07.865"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.865" endtime="20230327 22:04:07.865"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.854" endtime="20230327 22:04:07.865"/>
+</iter>
+<iter>
+<var name="${cell}">4</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.876" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.866" endtime="20230327 22:04:07.876"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.877" level="INFO">${rating} = 3</msg>
+<status status="PASS" starttime="20230327 22:04:07.877" endtime="20230327 22:04:07.877"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.877" endtime="20230327 22:04:07.877"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.876" endtime="20230327 22:04:07.878"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.866" endtime="20230327 22:04:07.878"/>
+</iter>
+<status status="PASS" starttime="20230327 22:04:07.841" endtime="20230327 22:04:07.878"/>
+</for>
+<kw name="Get From List" library="Collections">
+<var>${signal_type}</var>
+<arg>${coverages}</arg>
+<arg>${row-1}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<msg timestamp="20230327 22:04:07.878" level="INFO">${signal_type} = &lt;selenium.webdriver.remote.webelement.WebElement (session="21e3e57b28c8e60a858b7cf933287eb3", element="35d3e2c0-5737-4fc5-a38c-7b370ff38611")&gt;</msg>
+<status status="PASS" starttime="20230327 22:04:07.878" endtime="20230327 22:04:07.878"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${signal_type_text}</var>
+<arg>${signal_type}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.887" level="INFO">${signal_type_text} = 4G max 100M   </msg>
+<status status="PASS" starttime="20230327 22:04:07.879" endtime="20230327 22:04:07.887"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${signal_type_text} signal strength at ${ADDRESS}: ${rating}/3</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230327 22:04:07.887" level="INFO">4G max 100M    signal strength at Ratavartijankatu 5, Helsinki: 3/3</msg>
+<status status="PASS" starttime="20230327 22:04:07.887" endtime="20230327 22:04:07.887"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.841" endtime="20230327 22:04:07.887"/>
+</iter>
+<iter>
+<var name="${row}">4</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${rating}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230327 22:04:07.888" level="INFO">${rating} = 0</msg>
+<status status="PASS" starttime="20230327 22:04:07.888" endtime="20230327 22:04:07.888"/>
+</kw>
+<for flavor="IN RANGE">
+<var>${cell}</var>
+<value>2</value>
+<value>5</value>
+<iter>
+<var name="${cell}">2</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.899" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.888" endtime="20230327 22:04:07.899"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.900" level="INFO">${rating} = 1</msg>
+<status status="PASS" starttime="20230327 22:04:07.900" endtime="20230327 22:04:07.900"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.899" endtime="20230327 22:04:07.900"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.899" endtime="20230327 22:04:07.900"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.888" endtime="20230327 22:04:07.900"/>
+</iter>
+<iter>
+<var name="${cell}">3</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.916" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.900" endtime="20230327 22:04:07.916"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.917" level="INFO">${rating} = 2</msg>
+<status status="PASS" starttime="20230327 22:04:07.917" endtime="20230327 22:04:07.917"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.917" endtime="20230327 22:04:07.917"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.916" endtime="20230327 22:04:07.917"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.900" endtime="20230327 22:04:07.917"/>
+</iter>
+<iter>
+<var name="${cell}">4</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.933" level="INFO">${cell_class} = ea-icon ea-icon--star ea-icon--star-filled staricon_grey</msg>
+<status status="PASS" starttime="20230327 22:04:07.917" endtime="20230327 22:04:07.933"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" starttime="20230327 22:04:07.934" endtime="20230327 22:04:07.934"/>
+</kw>
+<status status="NOT RUN" starttime="20230327 22:04:07.934" endtime="20230327 22:04:07.934"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.934" endtime="20230327 22:04:07.934"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.917" endtime="20230327 22:04:07.934"/>
+</iter>
+<status status="PASS" starttime="20230327 22:04:07.888" endtime="20230327 22:04:07.934"/>
+</for>
+<kw name="Get From List" library="Collections">
+<var>${signal_type}</var>
+<arg>${coverages}</arg>
+<arg>${row-1}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<msg timestamp="20230327 22:04:07.935" level="INFO">${signal_type} = &lt;selenium.webdriver.remote.webelement.WebElement (session="21e3e57b28c8e60a858b7cf933287eb3", element="34e201c2-0c5e-4ec5-93ed-730b42388a4e")&gt;</msg>
+<status status="PASS" starttime="20230327 22:04:07.934" endtime="20230327 22:04:07.935"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${signal_type_text}</var>
+<arg>${signal_type}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.943" level="INFO">${signal_type_text} = 4G max 300M   </msg>
+<status status="PASS" starttime="20230327 22:04:07.935" endtime="20230327 22:04:07.943"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${signal_type_text} signal strength at ${ADDRESS}: ${rating}/3</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230327 22:04:07.944" level="INFO">4G max 300M    signal strength at Ratavartijankatu 5, Helsinki: 2/3</msg>
+<status status="PASS" starttime="20230327 22:04:07.944" endtime="20230327 22:04:07.944"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.888" endtime="20230327 22:04:07.944"/>
+</iter>
+<iter>
+<var name="${row}">5</var>
+<kw name="Set Variable" library="BuiltIn">
+<var>${rating}</var>
+<arg>0</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20230327 22:04:07.944" level="INFO">${rating} = 0</msg>
+<status status="PASS" starttime="20230327 22:04:07.944" endtime="20230327 22:04:07.944"/>
+</kw>
+<for flavor="IN RANGE">
+<var>${cell}</var>
+<value>2</value>
+<value>5</value>
+<iter>
+<var name="${cell}">2</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.957" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.945" endtime="20230327 22:04:07.957"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.957" level="INFO">${rating} = 1</msg>
+<status status="PASS" starttime="20230327 22:04:07.957" endtime="20230327 22:04:07.957"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.957" endtime="20230327 22:04:07.958"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.957" endtime="20230327 22:04:07.958"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.945" endtime="20230327 22:04:07.958"/>
+</iter>
+<iter>
+<var name="${cell}">3</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.969" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.958" endtime="20230327 22:04:07.969"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.970" level="INFO">${rating} = 2</msg>
+<status status="PASS" starttime="20230327 22:04:07.969" endtime="20230327 22:04:07.970"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.969" endtime="20230327 22:04:07.970"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.969" endtime="20230327 22:04:07.970"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.958" endtime="20230327 22:04:07.970"/>
+</iter>
+<iter>
+<var name="${cell}">4</var>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${cell_class}</var>
+<arg>xpath:/html/body/div[2]/div/div/div/div[2]/div[2]/div/div[4]/div/div/div/div[1]/div/div/div/div/ul/li/table/tbody/tr[${row}]/td[${cell}]</arg>
+<arg>class</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.981" level="INFO">${cell_class} = ea-icon ea-icon--star-filled staricon_blue</msg>
+<status status="PASS" starttime="20230327 22:04:07.970" endtime="20230327 22:04:07.981"/>
+</kw>
+<if>
+<branch type="IF" condition="'${cell_class}' == 'ea-icon ea-icon--star-filled staricon_blue'">
+<kw name="Evaluate" library="BuiltIn">
+<var>${rating}</var>
+<arg>${rating} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20230327 22:04:07.982" level="INFO">${rating} = 3</msg>
+<status status="PASS" starttime="20230327 22:04:07.982" endtime="20230327 22:04:07.982"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.981" endtime="20230327 22:04:07.982"/>
+</branch>
+<status status="PASS" starttime="20230327 22:04:07.981" endtime="20230327 22:04:07.982"/>
+</if>
+<status status="PASS" starttime="20230327 22:04:07.970" endtime="20230327 22:04:07.982"/>
+</iter>
+<status status="PASS" starttime="20230327 22:04:07.944" endtime="20230327 22:04:07.982"/>
+</for>
+<kw name="Get From List" library="Collections">
+<var>${signal_type}</var>
+<arg>${coverages}</arg>
+<arg>${row-1}</arg>
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<msg timestamp="20230327 22:04:07.983" level="INFO">${signal_type} = &lt;selenium.webdriver.remote.webelement.WebElement (session="21e3e57b28c8e60a858b7cf933287eb3", element="ff1c5caf-71b2-4646-adb3-af43a5dfe02b")&gt;</msg>
+<status status="PASS" starttime="20230327 22:04:07.982" endtime="20230327 22:04:07.983"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${signal_type_text}</var>
+<arg>${signal_type}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20230327 22:04:07.993" level="INFO">${signal_type_text} = 5G         </msg>
+<status status="PASS" starttime="20230327 22:04:07.983" endtime="20230327 22:04:07.993"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${signal_type_text} signal strength at ${ADDRESS}: ${rating}/3</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230327 22:04:07.994" level="INFO">5G          signal strength at Ratavartijankatu 5, Helsinki: 3/3</msg>
+<status status="PASS" starttime="20230327 22:04:07.994" endtime="20230327 22:04:07.994"/>
+</kw>
+<status status="PASS" starttime="20230327 22:04:07.944" endtime="20230327 22:04:07.994"/>
+</iter>
+<status status="PASS" starttime="20230327 22:04:07.697" endtime="20230327 22:04:07.994"/>
+</for>
+<status status="PASS" starttime="20230327 22:04:05.389" endtime="20230327 22:04:07.994"/>
+</test>
+<status status="PASS" starttime="20230327 22:04:05.263" endtime="20230327 22:04:07.995"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Test">Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
