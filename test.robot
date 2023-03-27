@@ -8,7 +8,6 @@ Library    Collections
 ${URL}    https://elisa.fi/kuuluvuus/
 ${BROWSER}    Chrome
 ${SEARCH_BOX}    id:search-input
-# Change this to test with different locations.
 ${ADDRESS}    Ratavartijankatu 5, Helsinki
 ${INFO_WINDOW}    id:infoWindow
 ${COVERAGE_CLASS}    class:elisa__coverage-map__info-box__technology
