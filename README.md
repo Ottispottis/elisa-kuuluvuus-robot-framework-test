@@ -1,7 +1,7 @@
 <h1> Testiautomaatio Elisan <a href="https://elisa.fi/kuuluvuus/">kuuluvuussivun</a> toiminnallisuuden testaamiseksi</h1>
 
 <h2>Toiminnallisuus</h2>
-<p>Hakee <a href="https://github.com/Ottispottis/elisa-kuuluvuus-robot-framework-test/blob/49d068a5398e715e494100c0ef34fe655f6aa520/test.robot#L12">${ADDRESS}</a> muuttujan mukaisen osoitteen kuuluvuussivulta ja varmistaa, että signaalien tähtiluokitukset tulevat sivulle halutulla tavalla.</p>
+<p>Hakee <a href="https://github.com/Ottispottis/elisa-kuuluvuus-robot-framework-test/blob/668e1a37421d6919420f920629f06a793563e902/test.robot#L11">${ADDRESS}</a> muuttujan mukaisen osoitteen kuuluvuussivulta ja varmistaa, että signaalien tähtiluokitukset tulevat sivulle halutulla tavalla.</p>
 <p><a href="https://github.com/Ottispottis/elisa-kuuluvuus-robot-framework-test/blob/main/log.html">log.html</a> tiedoston lopussa näkyvät signaalityypit ja niiden tähtiluokitukset.</p>
 <p>Testi epäonnistuu jos kaikki tähtiluokitukset eivät lataudu sivulle, tai jos taulukko johon luokitusten tulisi ilmestyä ei lataudu 30 sekunissa.</p>
 
