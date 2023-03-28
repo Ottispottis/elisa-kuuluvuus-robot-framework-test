@@ -1,4 +1,4 @@
-<h1> Testiautomaatio Elisan <a href="https://elisa.fi/kuuluvuus/">kuuluvuussivun</a> toiminnallisuuden testaamiseksi</h1>
+<h1> Testiautomaatio Elisan <a href="https://elisa.fi/kuuluvuus/">kuuluvuuskartan</a> toiminnallisuuden testaamiseksi</h1>
 
 <h2>Toiminnallisuus</h2>
 <p>Hakee <a href="https://github.com/Ottispottis/elisa-kuuluvuus-robot-framework-test/blob/668e1a37421d6919420f920629f06a793563e902/test.robot#L11">${ADDRESS}</a> muuttujan mukaisen osoitteen kuuluvuussivulta ja varmistaa, että signaalien tähtiluokitukset tulevat sivulle halutulla tavalla.</p>
